@@ -12,4 +12,19 @@ func sort(nums []int) []int {
 	return nums
 }
 
-func longestConsecutive(nums []int) int {}
+func longestConsecutive(nums []int) int {
+	nums = sort(nums)
+	if len(nums) == 0 {
+		return 0
+	}
+	maxLength, currentLength := 1, 1
+	for i := 1; i < len(nums); i++ {
+		if nums[i] == nums[i-1]+1 {
+			currentLength++
+		}
+		if currentLength > maxLength {
+			maxLength = currentLength
+		}
+	}
+	return maxLength
+}
