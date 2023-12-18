@@ -21,6 +21,8 @@ func longestConsecutive(nums []int) int {
 	for i := 1; i < len(nums); i++ {
 		if nums[i] == nums[i-1]+1 {
 			currentLength++
+		} else {
+			currentLength = 1
 		}
 		if currentLength > maxLength {
 			maxLength = currentLength
