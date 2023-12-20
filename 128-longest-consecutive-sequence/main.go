@@ -1,19 +1,15 @@
 package main
 
-func sort(nums []int) []int {
-	n := len(nums)
-	for i := 0; i < n; i++ {
-		for j := 0; j < n-i-1; j++ {
-			if nums[j] > nums[j+1] {
-				nums[j], nums[j+1] = nums[j+1], nums[j]
-			}
-		}
-	}
-	return nums
-}
+import "sort"
+
+type Intslice []int
+
+func (a Intslice) Len() int           { return len(a) }
+func (a Intslice) Swap(i, j int)      { a[i], a[j] = a[j], a[i] }
+func (a Intslice) Less(i, j int) bool { return a[i] < a[j] }
 
 func longestConsecutive(nums []int) int {
-	nums = sort(nums)
+	sort.Sort(Intslice(nums))
 	if len(nums) == 0 {
 		return 0
 	}
@@ -22,7 +18,9 @@ func longestConsecutive(nums []int) int {
 		if nums[i] == nums[i-1]+1 {
 			currentLength++
 		} else {
-			currentLength = 1
+			if nums[i] != nums[i-1] {
+				currentLength = 1
+			}
 		}
 		if currentLength > maxLength {
 			maxLength = currentLength
