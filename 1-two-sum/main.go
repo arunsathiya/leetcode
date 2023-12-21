@@ -13,5 +13,5 @@ func twoSum(nums []int, target int) []int {
 			return []int{left, right}
 		}
 	}
-	return nil
+	return []int{-1, -1}
 }
