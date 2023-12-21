@@ -1,17 +1,12 @@
 package main
 
 func twoSum(nums []int, target int) []int {
-	left := 0
-	right := len(nums) - 1
-	for left < right {
-		sum := nums[left] + nums[right]
-		if sum > target {
-			right--
-		} else if sum < target {
-			left++
-		} else {
-			return []int{left, right}
+	hashmap := make(map[int]int)
+	for i, num := range nums {
+		if j, okay := hashmap[target-num]; okay {
+			return []int{j, i}
 		}
+		hashmap[num] = i
 	}
 	return []int{-1, -1}
 }
