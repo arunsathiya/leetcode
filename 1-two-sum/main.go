@@ -8,5 +8,5 @@ func twoSum(nums []int, target int) []int {
 		}
 		hashmap[num] = i
 	}
-	return []int{-1, -1}
+	return nil
 }
