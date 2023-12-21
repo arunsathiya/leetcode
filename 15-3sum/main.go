@@ -25,7 +25,7 @@ func threeSum(nums []int) [][]int {
 			} else {
 				output = append(output, []int{num, nums[left], nums[right]})
 				left++
-				for nums[left] == nums[left-1] {
+				for nums[left] == nums[left-1] && left < right {
 					left++
 				}
 			}
