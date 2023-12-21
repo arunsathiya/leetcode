@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestInvertTree(t *testing.T) {
 	tests := []struct {
 		name   string
 		input  *TreeNode
