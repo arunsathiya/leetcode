@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestMain(t *testing.T) {
+func TestIsSameTree(t *testing.T) {
 	tests := []struct {
 		name   string
 		first  *TreeNode
