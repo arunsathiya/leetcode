@@ -1,10 +1,20 @@
 package main
 
 func findMin(nums []int) int {
-	for i := 1; i < len(nums); i++ {
-		if nums[i] < nums[i-1] {
-			return nums[i]
+	result := nums[0]
+	left, right := 0, len(nums)-1
+	for left <= right {
+		if nums[left] < nums[right] {
+			result = min(result, nums[left])
+			break
+		}
+		mid := (left + right) / 2
+		result = min(result, nums[mid])
+		if nums[mid] >= nums[left] {
+			left = mid + 1
+		} else {
+			right = mid - 1
 		}
 	}
-	return nums[0]
+	return result
 }
