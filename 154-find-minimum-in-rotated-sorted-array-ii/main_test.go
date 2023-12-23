@@ -20,6 +20,11 @@ func TestFindMin2(t *testing.T) {
 			input:    []int{2, 2, 2, 0, 1},
 			expected: 0,
 		},
+		{
+			name:     "third test case from leetcode",
+			input:    []int{10, 1, 10, 10, 10},
+			expected: 1,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
