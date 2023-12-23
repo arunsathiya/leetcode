@@ -1,7 +1,6 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 )
 
@@ -40,9 +39,26 @@ func TestTopKFrequent(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			output := topKFrequent(test.input, test.kValue)
-			if !reflect.DeepEqual(output, test.expected) {
+			if !equalityWithoutOrder(output, test.expected) {
 				t.Errorf("Expected %v, got %v", test.expected, output)
 			}
 		})
 	}
+}
+
+func equalityWithoutOrder(a, b []int) bool {
+	if len(a) != len(b) {
+		return false
+	}
+	count := make(map[int]int)
+	for _, item := range a {
+		count[item]++
+	}
+	for _, item := range b {
+		if count[item] == 0 {
+			return false
+		}
+		count[item]--
+	}
+	return true
 }
