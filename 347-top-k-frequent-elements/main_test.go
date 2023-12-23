@@ -24,6 +24,12 @@ func TestMain(t *testing.T) {
 			kValue:   1,
 			expected: []int{1},
 		},
+		{
+			name:     "third test case from leetcode",
+			input:    []int{3, 0, 1, 0},
+			kValue:   1,
+			expected: []int{0},
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
