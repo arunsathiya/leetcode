@@ -23,6 +23,11 @@ func TestMain(t *testing.T) {
 			input:    []int{11, 13, 15, 17},
 			expected: 11,
 		},
+		{
+			name:     "fourth test case from leetcode",
+			input:    []int{2, 1},
+			expected: 1,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
