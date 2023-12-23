@@ -1,7 +1,5 @@
 package main
 
-import "sort"
-
 func topKFrequent(nums []int, k int) []int {
 	hashmap := make(map[int]int, 0)
 	results := make([]int, 0)
@@ -12,16 +10,16 @@ func topKFrequent(nums []int, k int) []int {
 			hashmap[num] += 1
 		}
 	}
-	sort.Slice(nums, func(i, j int) bool {
-		return hashmap[nums[i]] > hashmap[nums[j]]
-	})
-	for _, num := range nums {
-		if len(results) == 0 || results[len(results)-1] != num {
-			results = append(results, num)
+	invertedMap := make(map[int][]int, 0)
+	maxFreq := 0
+	for value, freq := range hashmap {
+		invertedMap[freq] = append(invertedMap[freq], value)
+		if freq > maxFreq {
+			maxFreq = freq
 		}
-		if len(results) == k {
-			break
-		}
+	}
+	for freq := maxFreq; freq > 0 && len(results) < k; freq-- {
+		results = append(results, invertedMap[freq]...)
 	}
 	return results
 }
