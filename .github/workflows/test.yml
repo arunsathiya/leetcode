@@ -16,17 +16,21 @@ jobs:
       - uses: actions/checkout@v2
       - id: set-matrix
         run: |
-          echo "::set-output name=matrix::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.go$' | xargs -I {} dirname {} | uniq | jq -R -s -c 'split("\n")[:-1]')"
+          changed_dirs=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.go$' | xargs -I {} dirname {} | uniq | jq -R -s -c 'split("\n")[:-1]')
+          echo "Changed directories: $changed_dirs"
+          echo "::set-output name=matrix::$changed_dirs"
 
   build:
     needs: test
     runs-on: ubuntu-latest
+    if: needs.test.outputs.matrix != '[]'
     strategy:
+      fail-fast: false
       matrix:
-        directory: ${{fromJson(needs.test.outputs.matrix)}}
+        include: ${{fromJson(needs.test.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
           go-version: "^1.12.1"
-      - run: go test ./${{ matrix.directory }}
+      - run: go test ./${{ matrix.include }}
