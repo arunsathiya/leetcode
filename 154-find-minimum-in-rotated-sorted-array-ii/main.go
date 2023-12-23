@@ -6,7 +6,7 @@ func findMin2(nums []int) int {
 		if nums[left] < nums[right] {
 			return nums[left]
 		}
-		mid := (left + right) / 2
+		mid := left + (right-left)/2
 		if nums[mid] > nums[right] {
 			left = mid + 1
 		} else if nums[mid] < nums[right] {
