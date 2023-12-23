@@ -2,7 +2,7 @@ package main
 
 func findMin(nums []int) int {
 	left, right := 0, len(nums)-1
-	for left <= right {
+	for left < right {
 		if nums[left] < nums[right] {
 			return nums[left]
 		}
@@ -10,8 +10,8 @@ func findMin(nums []int) int {
 		if nums[mid] >= nums[left] {
 			left = mid + 1
 		} else {
-			right = mid - 1
+			right = mid
 		}
 	}
-	return nums[0]
+	return nums[left]
 }
