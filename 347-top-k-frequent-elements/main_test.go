@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestMain(t *testing.T) {
+func TestTopKFrequent(t *testing.T) {
 	tests := []struct {
 		name     string
 		input    []int
@@ -29,6 +29,12 @@ func TestMain(t *testing.T) {
 			input:    []int{3, 0, 1, 0},
 			kValue:   1,
 			expected: []int{0},
+		},
+		{
+			name:     "fourth test case from leetcode, but doesn't pass just yet due to order differences",
+			input:    []int{3, 2, 3, 1, 2, 4, 5, 5, 6, 7, 7, 8, 2, 3, 1, 1, 1, 10, 11, 5, 6, 2, 4, 7, 8, 5, 6},
+			kValue:   10,
+			expected: []int{1, 2, 5, 3, 6, 7, 4, 8, 10, 11},
 		},
 	}
 	for _, test := range tests {
