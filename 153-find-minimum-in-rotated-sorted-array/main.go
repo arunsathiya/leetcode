@@ -1,6 +1,6 @@
 package main
 
-func findMin(nums []int) int {
+func findMin1(nums []int) int {
 	left, right := 0, len(nums)-1
 	for left < right {
 		if nums[left] < nums[right] {
