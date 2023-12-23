@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestFindMind(t *testing.T) {
+func TestFindMin(t *testing.T) {
 	tests := []struct {
 		name     string
 		input    []int
