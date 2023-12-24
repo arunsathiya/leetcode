@@ -19,8 +19,7 @@ jobs:
           ref: ${{ github.head_ref }}
       - id: set-matrix
         run: |
-          git fetch --depth=1 origin +refs/heads/${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}
-          changed_dirs=$(git diff --name-only origin/${{ github.base_ref }} | grep '.go$' | xargs -I {} dirname {} | uniq | jq -R -s -c 'split("\n")[:-1] | map({"directory": .})')
+          changed_dirs=$(git diff --name-only origin/${{ github.base_ref }} | grep '.go$' | xargs -I {} dirname {} | uniq | awk '{print "\"" $0 "\""}' | jq -R -s -c 'split("\n")[:-1]')
           echo "Changed directories: $changed_dirs"
           echo "::set-output name=matrix::$changed_dirs"
 
@@ -31,10 +30,19 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        include: ${{fromJson(needs.test.outputs.matrix)}}
+        dir: ${{fromJson(needs.test.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
           go-version: "^1.12.1"
-      - run: go test ./${{ matrix.include.directory }}
+      - name: Run tests in changed directories
+        run: |
+          for dir in "${{ matrix.dir }}"; do
+            if [ -d "$dir" ]; then
+              echo "Running tests in $dir"
+              (cd "$dir" && go test ./...)
+            else
+              echo "No Go files in $dir"
+            fi
+          done
