@@ -8,25 +8,41 @@ on:
       - "**.go"
 
 jobs:
-  test:
+  diff:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          ref: ${{ github.head_ref }}
       - id: set-matrix
         run: |
-          echo "::set-output name=matrix::$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.go$' | xargs -I {} dirname {} | uniq | jq -R -s -c 'split("\n")[:-1]')"
+          changed_dirs=$(git diff --name-only origin/${{ github.base_ref }} | grep '.go$' | xargs -I {} dirname {} | uniq | awk '{print "\"" $0 "\""}' | jq -R -s -c 'split("\n")[:-1]')
+          echo "Changed directories: $changed_dirs"
+          echo "::set-output name=matrix::$changed_dirs"
 
-  build:
-    needs: test
+  test:
+    needs: diff
     runs-on: ubuntu-latest
+    if: needs.diff.outputs.matrix != '[]'
     strategy:
+      fail-fast: false
       matrix:
-        directory: ${{fromJson(needs.test.outputs.matrix)}}
+        dir: ${{fromJson(needs.diff.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
           go-version: "^1.12.1"
-      - run: go test ./${{ matrix.directory }}
+      - name: Run tests in changed directories
+        run: |
+          for dir in "${{ matrix.dir }}"; do
+            if [ -d "$dir" ]; then
+              echo "Running tests in $dir"
+              (cd "$dir" && go test ./...)
+            else
+              echo "No Go files in $dir"
+            fi
+          done

@@ -1,16 +1,18 @@
 package main
 
-func findMin1(nums []int) int {
+func findMin2(nums []int) int {
 	left, right := 0, len(nums)-1
 	for left < right {
 		if nums[left] < nums[right] {
 			return nums[left]
 		}
 		mid := left + (right-left)/2
-		if nums[mid] >= nums[left] {
+		if nums[mid] > nums[right] {
 			left = mid + 1
-		} else {
+		} else if nums[mid] < nums[right] {
 			right = mid
+		} else {
+			right--
 		}
 	}
 	return nums[left]
