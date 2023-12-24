@@ -8,7 +8,7 @@ on:
       - "**.go"
 
 jobs:
-  test:
+  diff:
     runs-on: ubuntu-latest
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
@@ -23,14 +23,14 @@ jobs:
           echo "Changed directories: $changed_dirs"
           echo "::set-output name=matrix::$changed_dirs"
 
-  build:
-    needs: test
+  test:
+    needs: diff
     runs-on: ubuntu-latest
-    if: needs.test.outputs.matrix != '[]'
+    if: needs.diff.outputs.matrix != '[]'
     strategy:
       fail-fast: false
       matrix:
-        dir: ${{fromJson(needs.test.outputs.matrix)}}
+        dir: ${{fromJson(needs.diff.outputs.matrix)}}
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
