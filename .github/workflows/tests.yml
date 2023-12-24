@@ -4,8 +4,7 @@ on:
   push:
     branches: [main]
   pull_request:
-    paths:
-      - "**.go"
+    branches: [main]
 
 jobs:
   diff:
@@ -46,3 +45,14 @@ jobs:
               echo "No Go files in $dir"
             fi
           done
+
+  test-main:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-go@v2
+        with:
+          go-version: "^1.12.1"
+      - name: Run tests
+        run: go test ./...
