@@ -38,7 +38,7 @@ func isValid(s string) bool {
 				return false
 			}
 			top := stack.Pop()
-			if (char == '(' && top != ')') || (char == '[' && top != ']') || (char == '{' && top != '}') {
+			if (char == ')' && top != '(') || (char == ']' && top != '[') || (char == '}' && top != '{') {
 				return false
 			}
 		}
