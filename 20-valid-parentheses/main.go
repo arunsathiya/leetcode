@@ -1,14 +1,14 @@
 package main
 
-type Stack []string
+type Stack []rune
 
-func (s *Stack) Push(str string) {
-	*s = append(*s, str)
+func (s *Stack) Push(r rune) {
+	*s = append(*s, r)
 }
 
-func (s *Stack) Pop() string {
+func (s *Stack) Pop() rune {
 	if len(*s) == 0 {
-		return ""
+		return 0
 	}
 	index := len(*s) - 1
 	element := (*s)[index]
@@ -16,9 +16,9 @@ func (s *Stack) Pop() string {
 	return element
 }
 
-func (s *Stack) Peek() string {
+func (s *Stack) Peek() rune {
 	if len(*s) == 0 {
-		return ""
+		return 0
 	}
 	return (*s)[len(*s)-1]
 }
@@ -32,13 +32,13 @@ func isValid(s string) bool {
 	for _, char := range s {
 		switch char {
 		case '(', '[', '{':
-			stack.Push(string(char))
+			stack.Push(char)
 		case ')', ']', '}':
 			if stack.IsEmpty() {
 				return false
 			}
 			top := stack.Pop()
-			if (char == '(' && top != ")") || (char == '[' && top != "]") || (char == '{' && top != "}") {
+			if (char == '(' && top != ')') || (char == '[' && top != ']') || (char == '{' && top != '}') {
 				return false
 			}
 		}
