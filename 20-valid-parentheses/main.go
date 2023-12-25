@@ -23,19 +23,25 @@ func (s *Stack) Peek() string {
 	return (*s)[len(*s)-1]
 }
 
-func (s *Stack) isEmpty() bool {
+func (s *Stack) IsEmpty() bool {
 	return len(*s) == 0
 }
 
 func isValid(s string) bool {
-	for i := range s {
-		if string(s[i]) == "(" && string(s[len(s)-1]) == ")" {
-			return true
-		} else if string(s[i]) == "[" && string(s[len(s)-1]) == "]" {
-			return true
-		} else if string(s[i]) == "{" && string(s[len(s)-1]) == "}" {
-			return true
+	var stack Stack
+	for _, char := range s {
+		switch char {
+		case '(', '[', '{':
+			stack.Push(string(char))
+		case ')', ']', '}':
+			if stack.IsEmpty() {
+				return false
+			}
+			top := stack.Pop()
+			if (char == '(' && top != ")") || (char == '[' && top != "]") || (char == '{' && top != "}") {
+				return false
+			}
 		}
 	}
-	return false
+	return stack.IsEmpty()
 }
