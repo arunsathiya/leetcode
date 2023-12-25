@@ -25,9 +25,11 @@ func TestIsValid(t *testing.T) {
 		},
 	}
 	for _, test := range tests {
-		output := isValid(test.input)
-		if output != test.expected {
-			t.Errorf("Expected %v, got %v", test.expected, output)
-		}
+		t.Run(test.name, func(t *testing.T) {
+			output := isValid(test.input)
+			if output != test.expected {
+				t.Errorf("Expected %v, got %v", test.expected, output)
+			}
+		})
 	}
 }
