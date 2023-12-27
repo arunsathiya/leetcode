@@ -8,7 +8,7 @@ func searchMatrix(matrix [][]int, target int) bool {
 		if target == firstmatrix[mid] {
 			return true
 		}
-		if firstmatrix[mid] >= firstmatrix[left] {
+		if target > firstmatrix[mid] {
 			left = mid + 1
 		} else {
 			right = mid - 1
