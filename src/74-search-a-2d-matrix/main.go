@@ -1,14 +1,18 @@
 package main
 
 func searchMatrix(matrix [][]int, target int) bool {
-	firstmatrix := matrix[0]
-	left, right := 0, len(firstmatrix)-1
+	if len(matrix) == 0 || len(matrix[0]) == 0 {
+		return false
+	}
+	rows, cols := len(matrix), len(matrix[0])
+	left, right := 0, (rows*cols)-1
 	for left <= right {
 		mid := left + (right-left)/2
-		if target == firstmatrix[mid] {
+		midValue := matrix[mid/cols][mid%cols]
+		if target == midValue {
 			return true
 		}
-		if target > firstmatrix[mid] {
+		if target > midValue {
 			left = mid + 1
 		} else {
 			right = mid - 1
