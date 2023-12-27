@@ -4,7 +4,7 @@ func fib(n int) int {
 	if n <= 1 {
 		return n
 	}
-	sequence := make([]int, 0)
+	sequence := make([]int, n)
 	sequence = append(sequence, 0)
 	sequence = append(sequence, 1)
 	for i := 2; i < n; i++ {
