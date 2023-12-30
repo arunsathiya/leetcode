@@ -1,9 +1,18 @@
 package main
 
-import "unicode"
+import (
+	"strings"
+	"unicode"
+)
 
 func isPalindrome(s string) bool {
-	s = alphanumeric(s)
+	f := func(r rune) rune {
+		if !unicode.IsLetter(r) && !unicode.IsNumber(r) {
+			return -1
+		}
+		return unicode.ToLower(r)
+	}
+	s = strings.Map(f, s)
 	left, right := 0, len(s)-1
 	for left < right {
 		if s[left] != s[right] {
@@ -14,14 +23,4 @@ func isPalindrome(s string) bool {
 		}
 	}
 	return true
-}
-
-func alphanumeric(s string) string {
-	var result []rune
-	for _, r := range s {
-		if ('A' <= r && r <= 'Z') || ('a' <= r && r <= 'z') || ('0' <= r && r <= '9') {
-			result = append(result, unicode.ToLower(r))
-		}
-	}
-	return string(result)
 }
