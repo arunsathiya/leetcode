@@ -25,7 +25,7 @@ func TestReverseList(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			ReorderList(tt.input)
+			reorderList(tt.input)
 			got := ListNodeToSlice(tt.input)
 			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Test %s failed: got %v, want %v", tt.name, got, tt.want)
