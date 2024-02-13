@@ -1,4 +1,10 @@
 package main
 
-func main() {}
+type ListNode struct {
+	Val  int
+	Next *ListNode
+}
 
+func ReorderList(head *ListNode) *ListNode {
+	return nil
+}
