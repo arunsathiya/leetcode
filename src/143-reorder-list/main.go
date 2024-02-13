@@ -5,6 +5,6 @@ type ListNode struct {
 	Next *ListNode
 }
 
-func ReorderList(head *ListNode) *ListNode {
-	return nil
+func ReorderList(head *ListNode) {
+
 }
