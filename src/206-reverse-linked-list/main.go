@@ -6,12 +6,13 @@ type ListNode struct {
 }
 
 func ReverseList(head *ListNode) *ListNode {
-	var node *ListNode
-	for temp := head; temp != nil; temp = temp.Next {
-		node = &ListNode{
-			Val:  temp.Val,
-			Next: node,
-		}
+	var prev *ListNode
+	current := head
+	for current != nil {
+		next := current.Next
+		current.Next = prev
+		prev = current
+		current = next
 	}
-	return node
+	return prev
 }
