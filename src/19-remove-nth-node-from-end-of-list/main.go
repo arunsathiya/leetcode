@@ -6,19 +6,17 @@ type ListNode struct {
 }
 
 func removeNthFromEnd(head *ListNode, n int) *ListNode {
-	var managed []*ListNode
-	for head != nil {
-		managed = append(managed, head)
-		head = head.Next
+	dummy := &ListNode{0, head}
+	left := dummy
+	right := head
+	for n > 0 && right != nil {
+		right = right.Next
+		n--
 	}
-	indexToRemove := len(managed) - n
-	if indexToRemove == 0 {
-		return head.Next
+	for right != nil {
+		left = left.Next
+		right = right.Next
 	}
-	if indexToRemove > 0 && indexToRemove < len(managed) {
-		managed[indexToRemove-1].Next = managed[indexToRemove].Next
-	} else if indexToRemove > 0 { // If removing the last node, ensure the previous node points to nil
-		managed[indexToRemove-1].Next = nil
-	}
-	return head
+	left.Next = left.Next.Next
+	return dummy.Next
 }
