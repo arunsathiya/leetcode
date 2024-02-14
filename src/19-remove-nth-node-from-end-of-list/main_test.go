@@ -1,63 +1,54 @@
 package main
 
 import (
-	"reflect"
 	"testing"
 )
 
 func TestRemoveNthFromEnd(t *testing.T) {
 	tests := []struct {
 		name string
-		head []int
+		head *ListNode
 		n    int
-		want []int
+		want *ListNode
 	}{
 		{
 			name: "5 elements, remove 2nd from end",
-			head: []int{1, 2, 3, 4, 5},
+			head: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{4, &ListNode{5, nil}}}}},
 			n:    2,
-			want: []int{1, 2, 3, 5},
+			want: &ListNode{1, &ListNode{2, &ListNode{3, &ListNode{5, nil}}}},
 		},
 		{
 			name: "single element, remove 1st",
-			head: []int{1},
+			head: &ListNode{1, nil},
 			n:    1,
-			want: []int{},
+			want: nil,
 		},
 		{
 			name: "2 elements, remove last",
-			head: []int{1, 2},
+			head: &ListNode{1, &ListNode{2, nil}},
 			n:    1,
-			want: []int{1},
+			want: &ListNode{1, nil},
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			head := sliceToListNode(tt.head)
-			got := removeNthFromEnd(head, tt.n)
-			gotSlice := listNodeToSlice(got)
-			if !reflect.DeepEqual(gotSlice, tt.want) {
-				t.Errorf("Test '%s' failed: got %v, want %v", tt.name, gotSlice, tt.want)
+			got := removeNthFromEnd(tt.head, tt.n)
+			if !isEqual(got, tt.want) {
+				t.Errorf("Test '%s' failed: linked list structure or values do not match expected result", tt.name)
 			}
 		})
 	}
 }
 
-func sliceToListNode(slice []int) *ListNode {
-	dummy := &ListNode{}
-	current := dummy
-	for _, val := range slice {
-		current.Next = &ListNode{Val: val}
-		current = current.Next
+// isEqual compares two linked lists for equality in values and structure.
+func isEqual(l1, l2 *ListNode) bool {
+	for l1 != nil && l2 != nil {
+		if l1.Val != l2.Val {
+			return false
+		}
+		l1 = l1.Next
+		l2 = l2.Next
 	}
-	return dummy.Next
-}
-
-func listNodeToSlice(head *ListNode) []int {
-	var slice []int
-	for current := head; current != nil; current = current.Next {
-		slice = append(slice, current.Val)
-	}
-	return slice
+	return l1 == nil && l2 == nil // Both should be nil at the end for the lists to be equal
 }
