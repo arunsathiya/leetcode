@@ -6,5 +6,13 @@ type ListNode struct {
 }
 
 func ReverseList(head *ListNode) *ListNode {
-	return nil
+	var managed []*ListNode
+	for head != nil {
+		managed = append(managed, head)
+		head = head.Next
+	}
+	i, j := 0, len(managed)-1
+	for i < j {
+
+	}
 }
