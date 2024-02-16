@@ -22,11 +22,15 @@ func levelOrder(root *TreeNode) [][]int {
 		queueLength := deque.Len()
 		var inner []int
 		for i := 0; i < queueLength; i++ {
-			node := deque.Front()
-			if node != nil {
-				inner = append(inner, int(node.Value))
-				deque.PushBack(node.Prev())
-				deque.PushBack(node.Next())
+			element := deque.Front()
+			node := element.Value.(*TreeNode)
+			deque.Remove(element)
+			inner = append(inner, node.Val)
+			if node.Left != nil {
+				deque.PushBack(node.Left)
+			}
+			if node.Right != nil {
+				deque.PushBack(node.Right)
 			}
 		}
 		if len(inner) > 0 {
