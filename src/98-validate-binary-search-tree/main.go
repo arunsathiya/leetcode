@@ -1,24 +1,25 @@
 package main
 
-import "math"
-
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
 	Right *TreeNode
 }
 
-func isWithinRange(node *TreeNode, lower, upper int) bool {
+func isWithinRange(node, left, right *TreeNode) bool {
 	if node == nil {
 		return true
 	}
-	if lower >= node.Val || upper <= node.Val {
+	if left != nil && left.Val >= node.Val {
 		return false
 	}
-	return isWithinRange(node.Left, lower, node.Val) && isWithinRange(node.Right, node.Val, upper)
+	if right != nil && right.Val <= node.Val {
+		return false
+	}
+	return isWithinRange(node.Left, left, node) && isWithinRange(node.Right, node, right)
 
 }
 
 func isValidBST(root *TreeNode) bool {
-	return isWithinRange(root, math.MinInt, math.MaxInt)
+	return isWithinRange(root, nil, nil)
 }
