@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func reorganizeString(s string) string {
+	return ""
+}
