@@ -9,7 +9,6 @@ func TestMinimumOperations(t *testing.T) {
 	}{
 		{[]int{1, 5, 0, 3, 5}, 3},
 		{[]int{0}, 0},
-		// Add more test cases here
 	}
 
 	for _, test := range tests {
