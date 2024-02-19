@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func kthFactor(n int, k int) int {
+	return 0
+}
