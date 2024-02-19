@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func minimumOperations(nums []int) int {
+	return 0
+}
