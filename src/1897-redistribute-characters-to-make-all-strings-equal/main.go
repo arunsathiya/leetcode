@@ -1,13 +1,13 @@
 package main
 
 func makeEqual(words []string) bool {
-	hm := make(map[rune]int)
+	counter := make([]int, 26)
 	for _, word := range words {
 		for _, char := range word {
-			hm[char]++
+			counter[char-'a']++
 		}
 	}
-	for _, count := range hm {
+	for _, count := range counter {
 		if count%len(words) != 0 {
 			return false
 		}
