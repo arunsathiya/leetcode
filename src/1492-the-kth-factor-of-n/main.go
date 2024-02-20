@@ -1,36 +1,19 @@
 package main
 
 func kthFactor(n int, k int) int {
-	factors := make(map[int]bool)
-	for i := 1; i <= n; i++ {
+	factors := make([]int, 0)
+	for i := 1; i <= n/2; i++ {
 		if n%i == 0 {
-			if _, exists := factors[i]; !exists {
-				factors[i] = true
-				factors[n/i] = true
-			} else {
-				break
-			}
+			factors = append(factors, i)
+		}
+		if len(factors) == k {
+			return factors[k-1]
 		}
 	}
-	var s []int
-	for k := range factors {
-		s = append(s, k)
-	}
-	sort(s)
-	if k <= len(s) {
-		return s[k-1]
+	factors = append(factors, n)
+	if k <= len(factors) {
+		return factors[k-1]
 	} else {
 		return -1
-	}
-}
-
-func sort(slice []int) {
-	n := len(slice)
-	for i := 0; i < n-1; i++ {
-		for j := 0; j < n-i-1; j++ {
-			if slice[j] > slice[j+1] {
-				slice[j], slice[j+1] = slice[j+1], slice[j]
-			}
-		}
 	}
 }
