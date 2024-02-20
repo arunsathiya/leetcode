@@ -9,6 +9,7 @@ func TestMakeEqual(t *testing.T) {
 	}{
 		{[]string{"abc", "aabc", "bc"}, true},
 		{[]string{"ab", "a"}, false},
+		{[]string{"b", "a"}, false},
 	}
 	for _, tt := range tests {
 		got := makeEqual(tt.words)
