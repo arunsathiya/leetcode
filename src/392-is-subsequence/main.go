@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func isSubsequence(s string, t string) bool {
+	return false
+}
