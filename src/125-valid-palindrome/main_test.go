@@ -12,7 +12,7 @@ func TestIsPalindrome(t *testing.T) {
 		{" ", true},
 		{"No lemon, no melon", true},
 		{"12321", true},
-		{"123a321", false},
+		{"123a321", true},
 	}
 
 	for _, tc := range testCases {
