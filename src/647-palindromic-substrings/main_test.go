@@ -15,6 +15,22 @@ func TestCountSubstrings(t *testing.T) {
 			s:        "aaa",
 			expected: 6, // Explanation: Six palindromic strings: "a", "a", "a", "aa", "aa", "aaa".
 		},
+		{
+			s:        "",
+			expected: 0, // Explanation: No substrings in an empty string.
+		},
+		{
+			s:        "a",
+			expected: 1, // Explanation: One palindromic string: "a".
+		},
+		{
+			s:        "abcd",
+			expected: 4, // Explanation: Four palindromic strings, each one character: "a", "b", "c", "d".
+		},
+		{
+			s:        "abba",
+			expected: 6, // Explanation: Six palindromic strings: "a", "b", "b", "a", "bb", "abba".
+		},
 	}
 
 	for _, tt := range tests {
