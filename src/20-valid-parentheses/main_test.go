@@ -23,6 +23,11 @@ func TestIsValid(t *testing.T) {
 			input:    "(]",
 			expected: false,
 		},
+		{
+			name:     "fourth test case from leetcode",
+			input:    "((",
+			expected: false,
+		},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {

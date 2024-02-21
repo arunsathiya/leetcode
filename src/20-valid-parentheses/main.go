@@ -19,5 +19,5 @@ func isValid(s string) bool {
 			stack = stack[:len(stack)-1]
 		}
 	}
-	return len(stack)%2 == 0
+	return len(stack) == 0
 }
