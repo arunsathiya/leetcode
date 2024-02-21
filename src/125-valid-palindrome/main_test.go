@@ -2,33 +2,24 @@ package main
 
 import "testing"
 
-func TestMain(t *testing.T) {
-	tests := []struct {
-		name     string
-		s        string
-		expected bool
+func TestIsPalindrome(t *testing.T) {
+	testCases := []struct {
+		s        string // input string
+		expected bool   // expected result
 	}{
-		{
-			name:     "first test case from leetcode",
-			s:        "A man, a plan, a canal: Panama",
-			expected: true,
-		},
-		{
-			name:     "second test case from leetcode",
-			s:        "race a car",
-			expected: false,
-		},
-		{
-			name:     "third test case from leetcode",
-			s:        "",
-			expected: true,
-		},
+		{"A man, a plan, a canal: Panama", true},
+		{"race a car", false},
+		{" ", true},
+		{"No lemon, no melon", true},
+		{"12321", true},
+		{"123a321", true},
 	}
-	for _, test := range tests {
-		t.Run(test.name, func(t *testing.T) {
-			output := isPalindrome(test.s)
-			if output != test.expected {
-				t.Errorf("Expected %v, got %v", test.expected, output)
+
+	for _, tc := range testCases {
+		t.Run(tc.s, func(t *testing.T) {
+			result := isPalindrome(tc.s)
+			if result != tc.expected {
+				t.Errorf("For input '%s', expected %v but got %v", tc.s, tc.expected, result)
 			}
 		})
 	}
