@@ -1,21 +1,18 @@
 package main
 
-import (
-	"strings"
-	"unicode"
-)
-
 func isPalindrome(s string) bool {
-	f := func(r rune) rune {
-		if !unicode.IsLetter(r) && !unicode.IsNumber(r) {
-			return -1
+	managed := ""
+	for _, char := range s {
+		if (char >= 'a' && char <= 'z') || (char >= 'A' && char <= 'Z') || (char >= '0' && char <= '9') {
+			if char >= 'A' && char <= 'Z' {
+				char += 32
+			}
+			managed += string(char)
 		}
-		return unicode.ToLower(r)
 	}
-	s = strings.Map(f, s)
-	left, right := 0, len(s)-1
+	left, right := 0, len(managed)-1
 	for left < right {
-		if s[left] != s[right] {
+		if managed[left] != managed[right] {
 			return false
 		}
 		left++
