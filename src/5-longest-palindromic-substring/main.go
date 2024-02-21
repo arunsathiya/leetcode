@@ -1,7 +1,7 @@
 package main
 
 func longestPalindrome(s string) string {
-	if s == "" {
+	if len(s) < 1 {
 		return ""
 	}
 	start, end := 0, 0
