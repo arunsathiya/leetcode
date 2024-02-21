@@ -4,11 +4,16 @@ func partitionString(s string) int {
 	optimal := make([]string, 0)
 	for len(s) > 0 {
 		instance := ""
-		for s[0] != instance[len(instance)-1] {
-			instance += string(s[0])
-			s = s[1:]
+		charMap := make(map[rune]bool)
+		for _, char := range s {
+			if charMap[char] {
+				break
+			}
+			instance += string(char)
+			charMap[char] = true
 		}
 		optimal = append(optimal, instance)
+		s = s[len(instance):]
 	}
 	return len(optimal)
 }
