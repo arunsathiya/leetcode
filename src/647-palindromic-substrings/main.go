@@ -13,5 +13,10 @@ func countSubstrings(s string) int {
 			palindromicSubstrings = append(palindromicSubstrings, s[i:i+2])
 		}
 	}
+	for i := 0; i < len(s)-2; i++ {
+		if s[i] == s[i+2] {
+			palindromicSubstrings = append(palindromicSubstrings, s[i:i+3])
+		}
+	}
 	return len(palindromicSubstrings)
 }
