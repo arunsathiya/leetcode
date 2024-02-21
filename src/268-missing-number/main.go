@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func missingNumber(nums []int) int {
+	return 0
+}
