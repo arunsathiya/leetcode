@@ -1,47 +1,23 @@
 package main
 
-type Stack []rune
-
-func (s *Stack) Push(r rune) {
-	*s = append(*s, r)
-}
-
-func (s *Stack) Pop() rune {
-	if len(*s) == 0 {
-		return 0
-	}
-	index := len(*s) - 1
-	element := (*s)[index]
-	*s = (*s)[:index]
-	return element
-}
-
-func (s *Stack) Peek() rune {
-	if len(*s) == 0 {
-		return 0
-	}
-	return (*s)[len(*s)-1]
-}
-
-func (s *Stack) IsEmpty() bool {
-	return len(*s) == 0
-}
-
 func isValid(s string) bool {
-	var stack Stack
-	for _, char := range s {
-		switch char {
-		case '(', '[', '{':
-			stack.Push(char)
-		case ')', ']', '}':
-			if stack.IsEmpty() {
-				return false
-			}
-			top := stack.Pop()
-			if (char == ')' && top != '(') || (char == ']' && top != '[') || (char == '}' && top != '{') {
-				return false
-			}
+	if len(s) == 0 || len(s)%2 == 1 {
+		return false
+	}
+	pairs := map[rune]rune{
+		'(': ')',
+		'{': '}',
+		'[': ']',
+	}
+	stack := []rune{}
+	for _, r := range s {
+		if _, okay := pairs[r]; okay {
+			stack = append(stack, r)
+		} else if len(stack) == 0 || pairs[stack[len(stack)-1]] != r {
+			return false
+		} else {
+			stack = stack[:len(stack)-1]
 		}
 	}
-	return stack.IsEmpty()
+	return len(stack)%2 == 0
 }
