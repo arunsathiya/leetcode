@@ -10,6 +10,9 @@ func TestIsPalindrome(t *testing.T) {
 		{"A man, a plan, a canal: Panama", true},
 		{"race a car", false},
 		{" ", true},
+		{"No lemon, no melon", true},
+		{"12321", true},
+		{"123a321", false},
 	}
 
 	for _, tc := range testCases {
