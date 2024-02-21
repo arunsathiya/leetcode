@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func countSubstrings(s string) int {
+	return 0
+}
