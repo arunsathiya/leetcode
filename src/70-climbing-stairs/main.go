@@ -6,11 +6,8 @@ func climbStairs(n int) int {
 }
 
 func climbStairsMemo(n int, memo map[int]int) int {
-	if n == 1 {
-		return 1
-	}
-	if n == 2 {
-		return 2
+	if n <= 2 {
+		return n
 	}
 	if _, exists := memo[n]; exists {
 		return memo[n]
