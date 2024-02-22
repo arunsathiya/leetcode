@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func uniqueOccurrences(arr []int) bool {
+	return false
+}
