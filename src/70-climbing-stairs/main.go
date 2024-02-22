@@ -1,15 +1,20 @@
 package main
 
 func climbStairs(n int) int {
+	memo := make(map[int]int, 0)
+	return climbStairsMemo(n, memo)
+}
+
+func climbStairsMemo(n int, memo map[int]int) int {
 	if n == 1 {
 		return 1
 	}
 	if n == 2 {
 		return 2
 	}
-	ways := make([]int, n+1)
-	for i := 3; i <= n; i++ {
-		ways[i] = ways[i-1] + ways[i-2]
+	if _, exists := memo[n]; exists {
+		return memo[n]
 	}
-	return ways[n]
+	memo[n] = climbStairsMemo(n-1, memo) + climbStairsMemo(n-2, memo)
+	return memo[n]
 }
