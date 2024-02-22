@@ -5,12 +5,12 @@ func uniqueOccurrences(arr []int) bool {
 	for _, num := range arr {
 		hm[num]++
 	}
-	values := make(map[int]int)
+	values := make(map[int]bool)
 	for _, v := range hm {
-		values[v]++
-		if values[v] > 1 {
+		if values[v] {
 			return false
 		}
+		values[v] = true
 	}
 	return true
 }
