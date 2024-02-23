@@ -10,6 +10,10 @@ func TestIsAnagram(t *testing.T) {
 	}{
 		{"anagram", "nagaram", true},
 		{"rat", "car", false},
+		{"", "", true},          // Edge case: both strings are empty
+		{"a", "a", true},        // Edge case: both strings contain the same single character
+		{"abc", "cba", true},    // Test case: simple anagram with no repeated letters
+		{"test", "ttew", false}, // Test case: same length but not an anagram
 	}
 
 	for _, tc := range testCases {
