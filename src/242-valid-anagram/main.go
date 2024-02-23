@@ -1,6 +1,9 @@
 package main
 
 func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
 	hm := make(map[rune]int)
 	hmt := make(map[rune]int)
 	for _, char := range s {
