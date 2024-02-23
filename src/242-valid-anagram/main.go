@@ -4,14 +4,17 @@ func isAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
 	}
-	hm := make(map[rune]int)
+	chars := make([]int, 26)
 	for _, char := range s {
-		hm[char]++
+		idx := int(char - 'a')
+		chars[idx]++
 	}
 	for _, char := range t {
-		if count, found := hm[char]; found && count > 0 {
-			hm[char]--
-		} else {
+		idx := int(char - 'a')
+		chars[idx]--
+	}
+	for _, char := range chars {
+		if char != 0 {
 			return false
 		}
 	}
