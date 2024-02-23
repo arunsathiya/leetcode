@@ -9,10 +9,7 @@ func isAnagram(s string, t string) bool {
 	for _, char := range t {
 		hmt[char]++
 	}
-	if !mapsEqual(hm, hmt) {
-		return false
-	}
-	return true
+	return mapsEqual(hm, hmt)
 }
 
 func mapsEqual(a, b map[rune]int) bool {
