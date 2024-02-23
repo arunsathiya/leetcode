@@ -6,19 +6,13 @@ func maxProfit(prices []int) int {
 	maxProfit := 0
 	for right < len(prices) {
 		currentProfit := prices[right] - prices[left]
-		if prices[right] > prices[left] {
-			maxProfit = Max(currentProfit, maxProfit)
-		} else {
+		if currentProfit > maxProfit {
+			maxProfit = currentProfit
+		}
+		if prices[right] < prices[left] {
 			left = right
 		}
-		right += 1
+		right++
 	}
 	return maxProfit
-}
-
-func Max(x, y int) int {
-	if x < y {
-		return y
-	}
-	return x
 }
