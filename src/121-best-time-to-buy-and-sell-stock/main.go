@@ -1,18 +1,24 @@
 package main
 
 func maxProfit(prices []int) int {
-	buyPrice := prices[0]
-	currentProfit := 0
+	left := 0
+	right := 1
 	maxProfit := 0
-	for i := 1; i < len(prices); i++ {
-		if prices[i] < buyPrice {
-			buyPrice = prices[i]
+	for right < len(prices) {
+		currentProfit := prices[right] - prices[left]
+		if prices[right] > prices[left] {
+			maxProfit = Max(currentProfit, maxProfit)
 		} else {
-			currentProfit = prices[i] - buyPrice
-			if currentProfit > maxProfit {
-				maxProfit = currentProfit
-			}
+			left = right
 		}
+		right += 1
 	}
 	return maxProfit
+}
+
+func Max(x, y int) int {
+	if x < y {
+		return y
+	}
+	return x
 }
