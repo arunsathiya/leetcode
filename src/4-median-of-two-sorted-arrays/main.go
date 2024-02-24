@@ -1,16 +1,28 @@
 package main
 
-import (
-	"sort"
-)
-
 func findMedianSortedArrays(nums1 []int, nums2 []int) float64 {
-	nums1 = append(nums1, nums2...)
-	sort.Ints(nums1)
-	if len(nums1)%2 != 0 {
-		return float64(nums1[len(nums1)/2])
+	managed := make([]int, 0, len(nums1)+len(nums2))
+	i, j := 0, 0
+	for i < len(nums1) && j < len(nums2) {
+		if nums1[i] < nums2[j] {
+			managed = append(managed, nums1[i])
+			i++
+		} else {
+			managed = append(managed, nums2[j])
+			j++
+		}
 	}
-	lower := (len(nums1) - 1) / 2
-	upper := lower + 1
-	return (float64(nums1[lower]) + float64(nums1[upper])) / 2
+	for i < len(nums1) {
+		managed = append(managed, nums1[i])
+		i++
+	}
+	for j < len(nums2) {
+		managed = append(managed, nums2[j])
+		j++
+	}
+	mid := len(managed) / 2
+	if mid%2 != 0 {
+		return float64(managed[mid])
+	}
+	return (float64(managed[mid]) + float64(managed[mid-1])) / 2.0
 }
