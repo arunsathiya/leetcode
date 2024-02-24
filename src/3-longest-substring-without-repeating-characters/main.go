@@ -5,7 +5,7 @@ func lengthOfLongestSubstring(s string) int {
 	maxLength := 0
 	charhm := make(map[rune]int)
 	for end, char := range s {
-		if trackedIdx, found := charhm[char]; found {
+		if trackedIdx, found := charhm[char]; found && trackedIdx >= start {
 			start = trackedIdx + 1
 		}
 		charhm[char] = end
