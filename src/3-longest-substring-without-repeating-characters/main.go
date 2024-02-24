@@ -1,15 +1,18 @@
 package main
 
 func lengthOfLongestSubstring(s string) int {
-	managed := ""
-	chars := [26]int{}
-	for _, char := range s {
-		managed += string(char)
-		idx := int(char - 'a')
-		chars[idx]++
-		if chars[idx] >= 2 {
-			return len(managed) - 1
+	start := 0
+	maxLength := 0
+	charhm := make(map[rune]int)
+	for end, char := range s {
+		if trackedIdx, found := charhm[char]; found {
+			start = trackedIdx + 1
+		}
+		charhm[char] = end
+		currentLength := end - start + 1
+		if currentLength > maxLength {
+			maxLength = currentLength
 		}
 	}
-	return 0
+	return maxLength
 }
