@@ -12,8 +12,7 @@ func trap(height []int) int {
 				totalTrap += leftMax - height[left]
 			}
 			left++
-		}
-		if height[right] <= height[left] {
+		} else {
 			if height[right] >= rightMax {
 				rightMax = height[right]
 			} else {
