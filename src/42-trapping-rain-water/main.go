@@ -1,25 +1,26 @@
 package main
 
 func trap(height []int) int {
-	leftMax, rightMax := 0, 0
-	left, right := 0, len(height)-1
 	totalTrap := 0
-	for left < right {
-		if height[left] <= height[right] {
-			if height[left] >= leftMax {
-				leftMax = height[left]
-			} else {
-				totalTrap += leftMax - height[left]
-			}
-			left++
-		} else {
-			if height[right] >= rightMax {
-				rightMax = height[right]
-			} else {
-				totalTrap += rightMax - height[right]
-			}
-			right--
+	highestIndex := 0
+	for idx, h := range height {
+		if h > height[highestIndex] {
+			highestIndex = idx
 		}
+	}
+	leftMax := -1
+	for i := 0; i < highestIndex; i++ {
+		if height[i] > leftMax {
+			leftMax = height[i]
+		}
+		totalTrap += leftMax - height[i]
+	}
+	rightMax := -1
+	for i := len(height) - 1; i > highestIndex; i-- {
+		if height[i] > rightMax {
+			rightMax = height[i]
+		}
+		totalTrap += rightMax - height[i]
 	}
 	return totalTrap
 }
