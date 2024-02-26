@@ -18,6 +18,11 @@ func TestMinimumReplacement(t *testing.T) {
 			nums: []int{1, 2, 3, 4, 5},
 			want: 0,
 		},
+		{
+			name: "Example 3",
+			nums: []int{12, 9, 7, 6, 17, 19, 21},
+			want: 6,
+		},
 	}
 
 	for _, tt := range tests {

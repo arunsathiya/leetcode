@@ -7,7 +7,7 @@ func minimumReplacement(nums []int) int64 {
 	for !sort.IntsAreSorted(nums) {
 		for idx, num := range nums {
 			if num > nums[idx+1] {
-				nums = replace(nums, idx, nums[idx-1], num-nums[idx-1])
+				nums = replace(nums, idx, nums[idx+1], num-nums[idx+1])
 				count++
 			}
 		}
