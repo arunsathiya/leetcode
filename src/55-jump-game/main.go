@@ -5,8 +5,6 @@ func canJump(nums []int) bool {
 	for idx, num := range nums {
 		if idx+num >= lastIndex {
 			return true
-		} else {
-			continue
 		}
 	}
 	return false
