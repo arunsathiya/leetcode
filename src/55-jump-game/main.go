@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func canJump(nums []int) bool {
+	return false
+}
