@@ -7,5 +7,16 @@ type TreeNode struct {
 }
 
 func diameterOfBinaryTree(root *TreeNode) int {
-	return 0
+	count := 0
+	originalRoot := root
+	for root.Left != nil {
+		count++
+		root = root.Left
+	}
+	root = originalRoot
+	for root.Right != nil {
+		count++
+		root = root.Right
+	}
+	return count
 }
