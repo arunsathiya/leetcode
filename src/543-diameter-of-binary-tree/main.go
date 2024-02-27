@@ -7,16 +7,24 @@ type TreeNode struct {
 }
 
 func diameterOfBinaryTree(root *TreeNode) int {
-	count := 0
-	originalRoot := root
-	for root.Left != nil {
-		count++
-		root = root.Left
+	max := 0
+	var depth func(node *TreeNode) int
+	depth = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		leftDepth := depth(node.Left)
+		rightDepth := depth(node.Right)
+		max = maxHelper(max, leftDepth+rightDepth)
+		return 1 + maxHelper(leftDepth, rightDepth)
 	}
-	root = originalRoot
-	for root.Right != nil {
-		count++
-		root = root.Right
+	depth(root)
+	return max
+}
+
+func maxHelper(a, b int) int {
+	if a > b {
+		return a
 	}
-	return count
+	return b
 }
