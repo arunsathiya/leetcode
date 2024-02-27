@@ -9,6 +9,7 @@ func TestDiameterOfBinaryTree(t *testing.T) {
 	}{
 		{buildTree([]interface{}{1, 2, 3, 4, 5}), 3},
 		{buildTree([]interface{}{1, 2}), 1},
+		{buildTree([]interface{}{3, 1, nil, nil, 2}), 2},
 	}
 
 	for _, test := range tests {
