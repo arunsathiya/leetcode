@@ -1,4 +1,5 @@
 package main
 
-func main() {}
-
+func compress(chars []byte) int {
+	return 0
+}
