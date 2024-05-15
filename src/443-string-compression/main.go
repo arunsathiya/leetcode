@@ -3,23 +3,18 @@ package main
 import "strconv"
 
 func compress(chars []byte) int {
-	var result int
+	original := len(chars)
 	hm := make(map[byte]int)
 	for _, char := range chars {
 		hm[char]++
 	}
-	for _, v := range hm {
-		if v == 1 {
-			result++
-		}
-		if v > 1 && v < 10 {
-			result += 1
-			result += v
-		}
-		if v > 10 {
-			result += 1
-			result += len(strconv.Itoa(v))
+	for char, count := range hm {
+		chars = append(chars, char)
+		if count > 1 {
+			for _, digit := range strconv.Itoa(count) {
+				chars = append(chars, byte(digit))
+			}
 		}
 	}
-	return result
+	return len(chars) - original
 }
