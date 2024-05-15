@@ -8,7 +8,7 @@ on:
 
 jobs:
   diff:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     outputs:
       matrix: ${{ steps.set-matrix.outputs.matrix }}
     steps:
@@ -24,7 +24,7 @@ jobs:
 
   test:
     needs: diff
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: needs.diff.outputs.matrix != '[]'
     strategy:
       fail-fast: false
@@ -48,7 +48,7 @@ jobs:
 
   test-main:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
