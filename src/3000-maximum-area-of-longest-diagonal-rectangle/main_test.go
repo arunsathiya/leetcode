@@ -4,30 +4,35 @@ import (
 	"testing"
 )
 
-func TestareaOfMaxDiagonal(t *testing.T) {
+func TestAreaOfMaxDiagonal(t *testing.T) {
 	tests := []struct {
-		name string
-		// TODO: add test fields
-		want interface{}
+		name     string
+		input    [][]int
+		expected int
 	}{
 		{
-			name: "Example 1",
-			// TODO: add test case
+			name:     "first test case from leetcode",
+			input:    [][]int{{9, 3}, {8, 6}},
+			expected: 48,
+		},
+		{
+			name:     "second test case from leetcode",
+			input:    [][]int{{3, 4}, {4, 3}},
+			expected: 12,
 		},
 	}
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			// TODO: implement test
-			// got := areaOfMaxDiagonal(...)
-			// if got != tt.want {
-			//     t.Errorf("areaOfMaxDiagonal() = %v, want %v", got, tt.want)
-			// }
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			output := areaOfMaxDiagonal(test.input)
+			if output != test.expected {
+				t.Errorf("Expected %d, got %d", test.expected, output)
+			}
 		})
 	}
 }
 
-func BenchmarkareaOfMaxDiagonal(b *testing.B) {
+func BenchmarkAreaOfMaxDiagonal(b *testing.B) {
 	// TODO: add benchmark inputs
 	for i := 0; i < b.N; i++ {
 		// areaOfMaxDiagonal(...)
