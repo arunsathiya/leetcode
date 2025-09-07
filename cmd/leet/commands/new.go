@@ -12,7 +12,29 @@ import (
 func NewProblem(number int, title, signature string, createBranch, useWorktree bool) error {
 	// Convert title to kebab-case
 	dirName := fmt.Sprintf("%d-%s", number, toKebabCase(title))
-	problemDir := filepath.Join("src", dirName)
+	
+	var baseDir string
+	var branchName string
+	
+	if useWorktree {
+		// Create branch and worktree first
+		kebabTitle := toKebabCase(title)
+		branchName = fmt.Sprintf("solve/%d-%s", number, kebabTitle)
+		
+		if err := CreateBranch(branchName, useWorktree); err != nil {
+			return fmt.Errorf("failed to create worktree: %v", err)
+		}
+		
+		// Use worktree directory as base
+		baseDir = GetWorktreePath(branchName)
+		if baseDir == "" {
+			return fmt.Errorf("failed to determine worktree path")
+		}
+	} else {
+		baseDir = "."
+	}
+	
+	problemDir := filepath.Join(baseDir, "src", dirName)
 	
 	// Check if directory already exists
 	if _, err := os.Stat(problemDir); !os.IsNotExist(err) {
@@ -112,13 +134,13 @@ func Benchmark{{.FuncName}}(b *testing.B) {
 	fmt.Printf("   Directory: %s\n", problemDir)
 	fmt.Printf("   Files: main.go, main_test.go\n")
 	
-	// Create branch if requested
-	if createBranch {
+	// Create branch if requested (but not worktree since that was already done)
+	if createBranch && !useWorktree {
 		// Use the same kebab-case function for consistency
 		kebabTitle := toKebabCase(title)
 		branchName := fmt.Sprintf("solve/%d-%s", number, kebabTitle)
 		
-		if err := CreateBranch(branchName, useWorktree); err != nil {
+		if err := CreateBranch(branchName, false); err != nil {
 			fmt.Printf("⚠️  Warning: Failed to create branch: %v\n", err)
 			fmt.Printf("   You can create it manually with: leet branch %d \"%s\"\n", number, title)
 		}
