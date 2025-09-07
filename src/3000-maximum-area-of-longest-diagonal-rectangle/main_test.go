@@ -20,6 +20,11 @@ func TestAreaOfMaxDiagonal(t *testing.T) {
 			input:    [][]int{{3, 4}, {4, 3}},
 			expected: 12,
 		},
+		{
+			name:     "third test case from leetcode",
+			input:    [][]int{{6, 5}, {8, 6}, {2, 10}, {8, 1}, {9, 2}, {3, 5}, {3, 5}},
+			expected: 20,
+		},
 	}
 
 	for _, test := range tests {
