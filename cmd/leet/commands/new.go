@@ -9,7 +9,7 @@ import (
 	"text/template"
 )
 
-func NewProblem(number int, title, signature string) error {
+func NewProblem(number int, title, signature string, createBranch, useWorktree bool) error {
 	// Convert title to kebab-case
 	dirName := fmt.Sprintf("%d-%s", number, toKebabCase(title))
 	problemDir := filepath.Join("src", dirName)
@@ -111,6 +111,18 @@ func Benchmark{{.FuncName}}(b *testing.B) {
 	fmt.Printf("✅ Created problem %d: %s\n", number, title)
 	fmt.Printf("   Directory: %s\n", problemDir)
 	fmt.Printf("   Files: main.go, main_test.go\n")
+	
+	// Create branch if requested
+	if createBranch {
+		// Use the same kebab-case function for consistency
+		kebabTitle := toKebabCase(title)
+		branchName := fmt.Sprintf("solve/%d-%s", number, kebabTitle)
+		
+		if err := CreateBranch(branchName, useWorktree); err != nil {
+			fmt.Printf("⚠️  Warning: Failed to create branch: %v\n", err)
+			fmt.Printf("   You can create it manually with: leet branch %d \"%s\"\n", number, title)
+		}
+	}
 	
 	return nil
 }
