@@ -1,22 +1,29 @@
 package main
 
-import "math"
+import (
+	"encoding/json"
+	"log"
+	"math"
+)
 
-func areaOfMaxDiagonal(dimensions [][]int) int {
+func areaOfMaxDiagonal(dimensions string) int {
 	var area int
 	var maxArea int
 	var diagonal float64
 	var maxDiagonal float64
-	for i := range dimensions {
-		length := dimensions[i][0]
-		width := dimensions[i][1]
+	var parsedDimensions [][]int
+	err := json.Unmarshal([]byte(dimensions), &parsedDimensions)
+	if err != nil {
+		log.Fatal(err.Error())
+	}
+	for i := range parsedDimensions {
+		length := parsedDimensions[i][0]
+		width := parsedDimensions[i][1]
 		diagonal = math.Sqrt(float64(length)*float64(length) + float64(width)*float64(width))
 		area = length * width
 		if diagonal > maxDiagonal {
 			maxDiagonal = diagonal
-			if area > maxArea {
-				maxArea = area
-			}
+			maxArea = area
 		}
 	}
 	return maxArea
