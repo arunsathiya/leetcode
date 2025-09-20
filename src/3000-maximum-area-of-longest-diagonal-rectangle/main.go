@@ -28,6 +28,11 @@ func areaOfMaxDiagonal(dimensions string) int {
 			maxDiagonal = diagonal
 			maxArea = area
 		}
+		if diagonal == maxDiagonal {
+			if area > maxArea {
+				maxArea = area
+			}
+		}
 	}
 	return maxArea
 }
