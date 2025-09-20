@@ -2,6 +2,8 @@ package main
 
 import (
 	"testing"
+
+	"github.com/arunsathiya/leetcode/testutil"
 )
 
 func TestAreaOfMaxDiagonal(t *testing.T) {
@@ -34,7 +36,8 @@ func TestAreaOfMaxDiagonal(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
-			output := areaOfMaxDiagonal(test.input)
+			dimensions := testutil.Parse2DIntArray(test.input)
+			output := areaOfMaxDiagonal(dimensions)
 			if output != test.expected {
 				t.Errorf("Expected %d, got %d", test.expected, output)
 			}
