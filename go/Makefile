@@ -19,7 +19,7 @@ endif
 ifndef SIGNATURE
 	$(error SIGNATURE is required. Usage: make new PROBLEM=123 TITLE="Two Sum" SIGNATURE="func twoSum(nums []int, target int) []int")
 endif
-	./leet new $(PROBLEM) $(TITLE) $(SIGNATURE)
+	./leet new $(PROBLEM) "$(TITLE)" "$(SIGNATURE)"
 
 # Run tests for a specific problem (requires PROBLEM variable)
 test:
