@@ -3,7 +3,7 @@ package main
 import (
 	"testing"
 
-	"github.com/arunsathiya/leetcode/testutil"
+	"github.com/arunsathiya/leetcode/go/testutil"
 )
 
 func TestAreaOfMaxDiagonal(t *testing.T) {

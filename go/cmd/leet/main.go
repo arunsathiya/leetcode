@@ -5,7 +5,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/arunsathiya/leetcode/cmd/leet/commands"
+	"github.com/arunsathiya/leetcode/go/cmd/leet/commands"
 )
 
 func main() {

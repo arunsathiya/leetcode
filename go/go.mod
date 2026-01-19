@@ -1,4 +1,4 @@
-module github.com/arunsathiya/leetcode
+module github.com/arunsathiya/leetcode/go
 
 go 1.25
 
