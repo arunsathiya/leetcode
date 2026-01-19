@@ -41,13 +41,21 @@ endif
 test-all:
 	go test ./...
 
+# Watch and test a specific problem on file changes
+watch:
+ifndef PROBLEM
+	$(error PROBLEM is required. Usage: make watch PROBLEM=1)
+endif
+	@echo "👀 Watching problem $(PROBLEM)..."
+	@while inotifywait -e modify src/$(PROBLEM)-*/main.go src/$(PROBLEM)-*/main_test.go 2>/dev/null; do clear && make test PROBLEM=$(PROBLEM); done
+
 # Clean build artifacts
 clean:
 	rm -f leet
 
 # Help
 help:
-	@echo "LeetCode Project Makefile"
+	@echo "LeetCode Go Makefile"
 	@echo ""
 	@echo "Commands:"
 	@echo "  make build                                    Build the CLI tool"
@@ -56,6 +64,7 @@ help:
 	@echo "                                                Create new problem"
 	@echo "  make test [PROBLEM=123]                       Run tests (specific or all)"
 	@echo "  make bench [PROBLEM=123]                      Run benchmarks (specific or all)"
+	@echo "  make watch PROBLEM=123                        Watch & auto-test on file changes"
 	@echo "  make test-all                                 Run all tests"
 	@echo "  make clean                                    Clean build artifacts"
 	@echo ""
@@ -63,5 +72,6 @@ help:
 	@echo "  make build"
 	@echo "  make new PROBLEM=1 TITLE=\"Two Sum\" SIGNATURE=\"func twoSum(nums []int, target int) []int\""
 	@echo "  make test PROBLEM=1"
+	@echo "  make watch PROBLEM=1"
 	@echo "  make bench PROBLEM=1"
 	@echo "  make test-all"
