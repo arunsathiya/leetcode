@@ -2,7 +2,7 @@
 
 # Build the CLI tool
 build:
-	go build -o leet ./cmd/leet
+	go build -trimpath -o leet ./cmd/leet
 
 # Install the CLI tool to GOPATH/bin
 install:
